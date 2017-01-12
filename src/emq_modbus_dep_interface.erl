@@ -1,5 +1,5 @@
 %%%-----------------------------------------------------------------------------
-%%% Copyright (c) 2016-2017 Feng Lee <feng@emqtt.io>, All Rights Reserved.
+%%% Copyright (c) 2015 Feng Lee <feng@emqtt.io>, All Rights Reserved.
 %%%
 %%% Permission is hereby granted, free of charge, to any person obtaining a copy
 %%% of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@
 %%%
 %%% @end
 %%%-----------------------------------------------------------------------------
--module(emq_broker_api).
+-module(emq_modbus_dep_interface).
 
 -include_lib("emqttd/include/emqttd.hrl").
 

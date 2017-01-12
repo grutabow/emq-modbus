@@ -61,7 +61,7 @@ init([CompanyName, EdgeName, Qos, Retain]) ->
     CompanyName1 = list_to_binary(CompanyName),
     EdgeName1 = list_to_binary(EdgeName),
     Topic = <<"/", CompanyName1/binary,  "/modbus_request/", EdgeName1/binary, "/+">>,
-    case emq_broker_api:subscribe(Topic) of
+    case emq_modbus_dep_interface:subscribe(Topic) of
         ok ->
             {ok, #state{topic_prefix = <<"/", CompanyName1/binary,  "/modbus_response/", EdgeName1/binary, "/">>,
                          qos = Qos, retain = Retain, tid = 0}};
@@ -80,7 +80,7 @@ handle_call(_Req, _From, State) ->
 handle_cast({send_response, Response, _From}, State) ->
     #modbus_rsp{device_name = DeviceName, msgid = MsgId, funcode = Funcode, data = Data} = Response,
     #state{qos = Qos, topic_prefix = TopicPrefix, retain = Retain} = State,
-    emq_broker_api:publish(DeviceName, Qos, Retain,
+    emq_modbus_dep_interface:publish(DeviceName, Qos, Retain,
                       <<TopicPrefix/binary, DeviceName/binary>>,
                       <<MsgId:8, Funcode:8, Data/binary>>),
     {noreply, State};
